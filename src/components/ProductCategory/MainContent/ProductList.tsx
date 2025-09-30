@@ -181,8 +181,9 @@ export default function ProductList({ productsList }: AppProps) {
 		brand_price_status_searchFilteredProducts
 	);
 
+	type SortOrder = 'asc' | 'desc' | 'none';
 	const sortProductsByPrice = useCallback(
-		(type) => {
+		(type: SortOrder) => {
 			if (type === 'asc') {
 				return brand_price_status_searchFilteredProducts
 					.slice()
@@ -207,10 +208,16 @@ export default function ProductList({ productsList }: AppProps) {
 		},
 		[brand_price_status_searchFilteredProducts]
 	);
+	const normalizedSort = useMemo<SortOrder>(() => {
+		const raw = router.query.sort;
 
+		if (Array.isArray(raw)) return (raw[0] as SortOrder) ?? 'none';
+		if (raw === 'asc' || raw === 'desc') return raw;
+		return 'none'; // fallback for undefined or invalid values
+	}, [router.query.sort]);
 	useEffect(() => {
-		setSortedProducts(sortProductsByPrice(sortType));
-	}, [sortProductsByPrice, sortType]);
+		setSortedProducts(sortProductsByPrice(normalizedSort));
+	}, [sortProductsByPrice, normalizedSort]);
 
 	const setNum = useStore((state) => state.setNum);
 	setNum(sortedProducts.length);
