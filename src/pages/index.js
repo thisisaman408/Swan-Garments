@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+
 import guy from 'assets/guy.jpg';
 import quayMat from 'assets/quayMat.jpg';
 import sun from 'assets/sun.png';

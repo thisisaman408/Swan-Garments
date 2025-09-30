@@ -1,4 +1,5 @@
 // src/components/ProductCategory/MainContent/ProductList.tsx
+/* eslint-disable react/no-unknown-property */
 
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useRouter } from 'next/router';
